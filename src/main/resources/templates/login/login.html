@@ -85,12 +85,15 @@
         }
     </style>
     <script src="https://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"/>
-    <script type="text/javascript">
+    <script type="text/javascript" th:inline="javascript">
+
+        var contextPath = "/xwdx";
+
         function doLogin() {
             let username = $("#username").val();
             let password = $("#password").val();
             $.ajax({
-                url: "../doLogin",
+                url: ".." + contextPath + "/doLogin",
                 type: "post",
                 dataType: "json",
                 data: {"username": username, "password": password},
@@ -98,7 +101,7 @@
                     let code = data.code;
                     let msg = data.msg;
                     if (0 == code) {
-                        window.location.href = "../index";
+                        window.location.href = ".." + contextPath + "/index";
                     } else {
                         alert(msg);
                     }
@@ -107,7 +110,7 @@
         }
 
         function alipayOAuthLogin() {
-            alert('alipayOAuthLogin');
+            window.location.href = ".." + contextPath + "/doOauthLoginAlipay";
         }
     </script>
 </head>

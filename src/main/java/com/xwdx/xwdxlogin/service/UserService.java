@@ -17,18 +17,18 @@ public class UserService {
     private Map<String, User> userMap = new HashMap<>();
 
     @PostConstruct
-    public void init(){
-        userMap.put("admin",User.builder().username("admin").password("113711").nickName("超级管理员").role("super admin").userAvatar("https://wx.qlogo.cn/mmopen/w0d1JOQLJMYHl4UHOBVgh1TBOjlcsUotoKrvGgTxDgKyMf6kXSocpOCAaVUia8JvLRxPzFxjjPQ73f3xGt5f7A3zYO3V82QicQ/64").build());
-        userMap.put("xwdx",User.builder().username("xwdx").password("113711").nickName("普通管理员").role("admin").userAvatar("https://wx.qlogo.cn/mmopen/w0d1JOQLJMYHl4UHOBVgh1TBOjlcsUotoKrvGgTxDgKyMf6kXSocpOCAaVUia8JvLRxPzFxjjPQ73f3xGt5f7A3zYO3V82QicQ/64").build());
-        userMap.put("metin",User.builder().username("metin").password("113711").nickName("普通用户").role("normal user").userAvatar("https://wx.qlogo.cn/mmopen/w0d1JOQLJMYHl4UHOBVgh1TBOjlcsUotoKrvGgTxDgKyMf6kXSocpOCAaVUia8JvLRxPzFxjjPQ73f3xGt5f7A3zYO3V82QicQ/64").build());
+    public void init() {
+        userMap.put("admin", User.builder().username("admin").password("113711").nickName("超级管理员").role("super admin").userAvatar("https://wx.qlogo.cn/mmopen/w0d1JOQLJMYHl4UHOBVgh1TBOjlcsUotoKrvGgTxDgKyMf6kXSocpOCAaVUia8JvLRxPzFxjjPQ73f3xGt5f7A3zYO3V82QicQ/64").build());
+        userMap.put("xwdx", User.builder().username("xwdx").password("113711").nickName("普通管理员").role("admin").userAvatar("https://wx.qlogo.cn/mmopen/w0d1JOQLJMYHl4UHOBVgh1TBOjlcsUotoKrvGgTxDgKyMf6kXSocpOCAaVUia8JvLRxPzFxjjPQ73f3xGt5f7A3zYO3V82QicQ/64").build());
+        userMap.put("metin", User.builder().username("metin").password("113711").nickName("普通用户").role("normal user").userAvatar("https://wx.qlogo.cn/mmopen/w0d1JOQLJMYHl4UHOBVgh1TBOjlcsUotoKrvGgTxDgKyMf6kXSocpOCAaVUia8JvLRxPzFxjjPQ73f3xGt5f7A3zYO3V82QicQ/64").build());
     }
 
-    public User loginWithPassword(String username, String password){
-         User user = userMap.get(username);
-         if (password.equals(user.getPassword())){
-             return user;
-         }
-         return null;
+    public User loginWithPassword(String username, String password) {
+        User user = userMap.get(username);
+        if (user != null && password.equals(user.getPassword())) {
+            return user;
+        }
+        return null;
     }
 
 }

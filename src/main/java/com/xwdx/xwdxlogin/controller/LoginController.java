@@ -1,9 +1,10 @@
 package com.xwdx.xwdxlogin.controller;
 
+import com.alibaba.fastjson.JSON;
 import com.xwdx.xwdxlogin.constant.CommonConstant;
 import com.xwdx.xwdxlogin.domain.User;
 import com.xwdx.xwdxlogin.dto.ResponseDTO;
-import com.xwdx.xwdxlogin.service.AlipayLoginService;
+import com.xwdx.xwdxlogin.service.AliPayLoginService;
 import com.xwdx.xwdxlogin.service.UserService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,7 +29,7 @@ public class LoginController {
     @Autowired
     private UserService userService;
     @Autowired
-    private AlipayLoginService alipayLoginService;
+    private AliPayLoginService alipayLoginService;
 
     @GetMapping("/")
     public String defaultPage() {
@@ -77,24 +78,27 @@ public class LoginController {
     @RequestMapping("/doOauthLoginAlipay")
     public void doOauthLoginAlipay(HttpServletRequest httpServletRequest, HttpServletResponse response) {
         try {
-            response.sendRedirect("");
+            response.sendRedirect("https://openauth.alipay.com/oauth2/publicAppAuthorize.htm?app_id=2019011763058357&scope=auth_user&redirect_uri=http%3A%2F%2Fwww.xwdx.site%2Fxwdx%2FalipayCallBack");
         } catch (IOException e) {
-            e.printStackTrace();
+            log.error("doOAuthLoginAlipay error");
         }
     }
 
     @RequestMapping("/alipayCallBack")
-    public void alipayCallBack(String code, HttpServletResponse httpServletResponse, HttpSession httpSession) {
+    public void alipayCallBack(@RequestParam("auth_code") String authCode, HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, HttpSession httpSession) {
         try {
+            log.info(httpServletRequest.getParameterMap().toString());
+
+            log.info("code={}, requestParameter={}", authCode, JSON.toJSONString(httpServletRequest.getParameterMap().toString()));
             // 获取到授权码code，然后通过code获取支付宝用户信息
-            User user = alipayLoginService.alipayLogin(code);
+            User user = alipayLoginService.alipayLogin(authCode);
             if (user == null) {
-                httpServletResponse.sendRedirect("/login/login");
+                httpServletResponse.sendRedirect("login/login");
             }
             // 写session到登录页面
             httpSession.setAttribute("user", user);
-            httpServletResponse.sendRedirect("/index");
-        } catch (IOException e) {
+            httpServletResponse.sendRedirect("index");
+        } catch (Exception e) {
             log.error("alipayCallBack error");
         }
     }

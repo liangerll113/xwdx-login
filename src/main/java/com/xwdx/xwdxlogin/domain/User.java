@@ -1,7 +1,9 @@
 package com.xwdx.xwdxlogin.domain;
 
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 /**
  * @author metinkong
@@ -9,6 +11,8 @@ import lombok.Data;
  **/
 @Data
 @Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class User {
 
     private String username;
@@ -20,5 +24,7 @@ public class User {
     private String role;
 
     private String userAvatar;
+
+    private String extendMsg;
 
 }
