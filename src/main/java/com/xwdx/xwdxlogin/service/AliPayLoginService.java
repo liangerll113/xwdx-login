@@ -32,6 +32,7 @@ public class AliPayLoginService {
 
     public User alipayLogin(String authCode) throws Exception {
 
+        log.info("aesKey={}", aesKey);
         String accessToken = getAccessToken(authCode);
         log.info("accessToken={}", accessToken);
         User user = getUserInfo(accessToken);
