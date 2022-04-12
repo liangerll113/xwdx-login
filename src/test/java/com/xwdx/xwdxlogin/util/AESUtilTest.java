@@ -9,7 +9,7 @@ import org.junit.Test;
  */
 public class AESUtilTest {
 
-    String str = "xxxxx";
+    String str = "xxx";
 
     @Test
     public void encrypt() throws Exception {
@@ -17,5 +17,6 @@ public class AESUtilTest {
         String encrypt = AESUtil.encrypt(str, key);
         String decrypt = AESUtil.decrypt(encrypt, key);
         Assert.assertEquals(str, decrypt);
+        System.out.println(encrypt);
     }
 }

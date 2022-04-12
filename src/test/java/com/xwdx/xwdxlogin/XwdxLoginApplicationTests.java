@@ -1,9 +1,9 @@
 package com.xwdx.xwdxlogin;
 
-import org.springframework.boot.test.context.SpringBootTest;
+import org.junit.Test;
+import org.springframework.web.client.RestTemplate;
 
 
 class XwdxLoginApplicationTests {
-
 
 }

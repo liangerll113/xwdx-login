@@ -93,7 +93,7 @@
             let username = $("#username").val();
             let password = $("#password").val();
             $.ajax({
-                url: ".." + contextPath + "/doLogin",
+                url: "doLogin",
                 type: "post",
                 dataType: "json",
                 data: {"username": username, "password": password},
@@ -101,7 +101,7 @@
                     let code = data.code;
                     let msg = data.msg;
                     if (0 == code) {
-                        window.location.href = ".." + contextPath + "/index";
+                        window.location.href = "index";
                     } else {
                         alert(msg);
                     }
@@ -110,12 +110,11 @@
         }
 
         function alipayOAuthLogin (){
-            window.location.href = ".." + contextPath + "/doOauthLoginAlipay";
+            window.location.href = "doOauthLoginAlipay";
         }
 
         function qqOAuthLogin (){
-            // window.location.href = ".." + contextPath + "/doOauthLoginAlipay";
-            console.log("qq登录");
+            window.location.href = "doOauthLoginQQ";
         }
     </script>
 </head>
@@ -135,8 +134,8 @@
 <div class="oauthLoginDiv">
     <div><p style="margin-bottom: 9px;">——— 第三方账号登录 ———</p></div>
     <div>
-        <img th:src="@{static/img/loginByQQ.png}" width="99px" height="45px" onclick="qqOAuthLogin()"/>
-        <img th:src="@{static/img/alipay.png}" width="45px" height="45px" onclick="alipayOAuthLogin()"/>
+        <img th:src="@{static/img/loginByQQ.png}" width="45px" height="45px" onclick="qqOAuthLogin()"/>
+        <img style="margin-left: 6px;" th:src="@{static/img/alipay.png}" width="45px" height="45px" onclick="alipayOAuthLogin()"/>
     </div>
 </div>
 

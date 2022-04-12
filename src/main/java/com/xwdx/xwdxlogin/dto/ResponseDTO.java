@@ -19,10 +19,15 @@ public class ResponseDTO {
 
     private int code;
     private String msg;
+    private Object data;
 
 
     public static ResponseDTO success() {
         return ResponseDTO.builder().code(SUCCESS_CODE).msg(SUCCESS_MSG).build();
+    }
+
+    public static ResponseDTO success(Object data) {
+        return ResponseDTO.builder().code(SUCCESS_CODE).msg(SUCCESS_MSG).data(data).build();
     }
 
     public static ResponseDTO error() {
@@ -35,5 +40,9 @@ public class ResponseDTO {
 
     public static ResponseDTO response(int code, String msg) {
         return ResponseDTO.builder().code(code).msg(msg).build();
+    }
+
+    public static ResponseDTO response(int code, String msg, Object data) {
+        return ResponseDTO.builder().code(code).msg(msg).data(data).build();
     }
 }

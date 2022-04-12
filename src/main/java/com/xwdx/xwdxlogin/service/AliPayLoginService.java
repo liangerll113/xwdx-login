@@ -13,6 +13,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
+import javax.servlet.http.HttpServletResponse;
+
 /**
  * @author metinkong
  * @date 2022/4/8 15:07
@@ -27,8 +29,12 @@ public class AliPayLoginService {
     private String aliPayPubKey;
     @Value("${oauth2.aliPay.myPriKey}")
     private String myPriKey;
-    @Value("${oauth2.aliPay.AESKey}")
+    @Value("${oauth2.aes.key}")
     private String aesKey;
+
+    public void doOauthLoginAlipay(HttpServletResponse response) throws Exception {
+        response.sendRedirect("https://openauth.alipay.com/oauth2/publicAppAuthorize.htm?app_id=" + AESUtil.decrypt(appId, aesKey) + "&scope=auth_user&redirect_uri=http%3A%2F%2Fwww.xwdx.site%2Fxwdx%2FalipayCallBack");
+    }
 
     public User alipayLogin(String authCode) throws Exception {
 
@@ -62,6 +68,5 @@ public class AliPayLoginService {
         user.setExtendMsg(response.getBody());
         return user;
     }
-
 
 }
